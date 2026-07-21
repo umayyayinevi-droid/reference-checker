@@ -12,7 +12,7 @@ class Reference(db.Model):
     title = db.Column(db.String(500), nullable=False)
     authors = db.Column(db.String(1000))  # JSON formatında
     year = db.Column(db.Integer)
-    doi = db.Column(db.String(100), unique=True, sparse=True)
+    doi = db.Column(db.String(100), unique=True)
     url = db.Column(db.String(500))
     journal = db.Column(db.String(300))
     volume = db.Column(db.String(50))
