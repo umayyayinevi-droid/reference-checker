@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reference Checker - Akademik Referans Kontrol</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <h1 class="logo">📚 Reference Checker</h1>
+                <ul class="nav-links">
+                    <li><a href="#home">Ana Sayfa</a></li>
+                    <li><a href="#checker">Kontrol Et</a></li>
+                    <li><a href="#reports">Raporlar</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Ana Sayfa -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h2>Akademik Referanslarınızı Doğrulayın</h2>
+                <p>Modern ve güvenilir referans kontrol yazılımı ile akademik çalışmalarınızın kredibilitesini artırın.</p>
+                <a href="#checker" class="btn btn-primary">Başlayın</a>
+            </div>
+        </section>
+
+        <!-- Kontrol Bölümü -->
+        <section id="checker" class="checker-section">
+            <h2>Referans Kontrol</h2>
+            
+            <!-- Tab Seçenekleri -->
+            <div class="tabs">
+                <button class="tab-button active" onclick="switchTab('paste')">Yapıştır</button>
+                <button class="tab-button" onclick="switchTab('upload')">Dosya Yükle</button>
+                <button class="tab-button" onclick="switchTab('manual')">Manuel Gir</button>
+            </div>
+
+            <!-- Yapıştırma Alanı -->
+            <div id="paste" class="tab-content active">
+                <h3>Referansları Yapıştırın</h3>
+                <div class="form-group">
+                    <label for="paste-area">Referans Metni (Her referansı yeni satırda yazın):</label>
+                    <textarea id="paste-area" placeholder="Örn: Smith, J. (2020). Başlık. Journal Name, 10(5), 123-145.&#10;Johnson, M. et al. (2021). Başlık. Publisher."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="format-select">Referans Formatı:</label>
+                    <select id="format-select">
+                        <option value="auto">Otomatik Algıla</option>
+                        <option value="apa">APA</option>
+                        <option value="mla">MLA</option>
+                        <option value="chicago">Chicago</option>
+                        <option value="ieee">IEEE</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" onclick="checkPastedReferences()">Kontrol Et</button>
+            </div>
+
+            <!-- Dosya Yükleme -->
+            <div id="upload" class="tab-content">
+                <h3>Dosya Yükleyin</h3>
+                <div class="upload-area" id="uploadArea">
+                    <p>📄 Dosyayı buraya sürükleyin veya tıklayın (PDF veya TXT)</p>
+                    <input type="file" id="fileInput" accept=".pdf,.txt" hidden>
+                </div>
+                <button class="btn btn-primary" onclick="uploadFile()">Dosya Seç</button>
+            </div>
+
+            <!-- Manuel Giriş -->
+            <div id="manual" class="tab-content">
+                <h3>Referans Bilgisi Manuel Girin</h3>
+                <form id="manualForm" onsubmit="addManualReference(event)">
+                    <div class="form-group">
+                        <label for="title">Başlık *:</label>
+                        <input type="text" id="title" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="authors">Yazarlar (virgülle ayrılmış):</label>
+                            <input type="text" id="authors">
+                        </div>
+                        <div class="form-group">
+                            <label for="year">Yıl:</label>
+                            <input type="number" id="year" min="1450" max="2100">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="journal">Dergi/Yayınevi:</label>
+                            <input type="text" id="journal">
+                        </div>
+                        <div class="form-group">
+                            <label for="doi">DOI:</label>
+                            <input type="text" id="doi">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="url">URL:</label>
+                        <input type="url" id="url">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Ekle</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Sonuçlar -->
+        <section id="results" class="results-section" style="display:none;">
+            <h2>Kontrol Sonuçları</h2>
+            <div id="resultsList" class="results-list"></div>
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="generateReport('html')">HTML Rapor İndir</button>
+                <button class="btn btn-primary" onclick="generateReport('pdf')">PDF Rapor İndir</button>
+                <button class="btn btn-primary" onclick="generateReport('json')">JSON Rapor İndir</button>
+            </div>
+        </section>
+
+        <!-- Raporlar -->
+        <section id="reports" class="reports-section">
+            <h2>Önceki Raporlar</h2>
+            <div id="reportsList" class="reports-list"></div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Reference Checker. Tüm hakları saklıdır.</p>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
